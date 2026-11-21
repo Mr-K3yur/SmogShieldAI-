@@ -37,8 +37,14 @@ htmlcov/
 
 # Environments & Secrets
 .env
-.env.local
+.env.*
 *.local
+
+# Firebase
+.firebase/
+
+# Agent local metadata
+.gsd/.gemini/
 
 # Logs and temporary files
 *.log

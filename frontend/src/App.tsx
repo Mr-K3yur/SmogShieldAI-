@@ -15,6 +15,7 @@ export const App: React.FC = () => {
   const [health, setHealth] = useState<BackendHealthResponse | null>(null);
   const [healthLoading, setHealthLoading] = useState<boolean>(true);
   const [healthError, setHealthError] = useState<string | null>(null);
+  const [selectedStationId, setSelectedStationId] = useState<string>('');
 
   useEffect(() => {
     let isMounted = true;
@@ -47,19 +48,36 @@ export const App: React.FC = () => {
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'dashboard':
-        return <DashboardPage health={health} />;
+        return (
+          <DashboardPage
+            health={health}
+            selectedStationId={selectedStationId}
+            onSelectStation={setSelectedStationId}
+          />
+        );
       case 'planner':
-        return <PlannerPage />;
+        return <PlannerPage selectedStationId={selectedStationId} />;
       case 'advisor':
-        return <AdvisorPage />;
+        return <AdvisorPage selectedStationId={selectedStationId} />;
       case 'transport':
-        return <TransportPage />;
+        return (
+          <TransportPage
+            selectedStationId={selectedStationId}
+            onNavigateToImpact={() => setCurrentPage('impact')}
+          />
+        );
       case 'impact':
         return <ImpactPage />;
       case 'assistant':
         return <AssistantPage health={health} />;
       default:
-        return <DashboardPage health={health} />;
+        return (
+          <DashboardPage
+            health={health}
+            selectedStationId={selectedStationId}
+            onSelectStation={setSelectedStationId}
+          />
+        );
     }
   };
 
